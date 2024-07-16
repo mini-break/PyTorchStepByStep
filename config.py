@@ -7,9 +7,11 @@ import shutil
 from IPython.display import HTML, display
 from tensorboard import manager
 
+
 def tensorboard_cleanup():
     info_dir = manager._get_info_dir()
     shutil.rmtree(info_dir)
+
 
 FOLDERS = {
     0: ['plots'],
@@ -40,7 +42,8 @@ FILENAMES = {
     71: ['chapterextra.py', 'v3.py', 'ball.py'],
     8: ['chapter8.py', 'replay.py', 'v4.py', 'square_sequences.py'],
     9: ['chapter8.py', 'chapter9.py', 'replay.py', 'v4.py', 'square_sequences.py'],
-    10: ['chapter8.py', 'chapter9.py', 'chapter10.py', 'replay.py', 'v4.py', 'square_sequences.py', 'image_classification.py', 'helpers.py', 'seq2seq.py'],
+    10: ['chapter8.py', 'chapter9.py', 'chapter10.py', 'replay.py', 'v4.py', 'square_sequences.py',
+         'image_classification.py', 'helpers.py', 'seq2seq.py'],
     11: ['chapter11.py', 'v4.py', 'nlp.py', 'seq2seq.py'],
 }
 
@@ -49,21 +52,25 @@ try:
     IS_BINDER = True
 except KeyError:
     IS_BINDER = False
-    
+
 try:
     import google.colab
+
     IS_COLAB = True
 except ModuleNotFoundError:
     IS_COLAB = False
 
 IS_LOCAL = (not IS_BINDER) and (not IS_COLAB)
 
-def download_to_colab(chapter, branch='master'):    
+
+def download_to_colab(chapter, branch='master'):
     base_url = 'https://raw.githubusercontent.com/dvgodoy/PyTorchStepByStep/{}/'.format(branch)
 
     folders = FOLDERS[chapter]
     filenames = FILENAMES[chapter]
+    # zip 迭代多个对象
     for folder, filename in zip(folders, filenames):
+        # 如何目录不存在，则创建，如果存在，则捕获异常但并不做处理
         if len(folder):
             try:
                 os.mkdir(folder)
@@ -72,9 +79,12 @@ def download_to_colab(chapter, branch='master'):
                     raise
 
         if len(filename):
+            # 构建文件的完整路径
             path = os.path.join(folder, filename)
             url = '{}{}'.format(base_url, path)
+            # 下载文件
             r = requests.get(url, allow_redirects=True)
+            # 以二进制写入模型打开文件，并将内容写入文件
             open(path, 'wb').write(r.content)
 
     try:
@@ -82,6 +92,7 @@ def download_to_colab(chapter, branch='master'):
     except OSError as e:
         if e.errno != errno.EEXIST:
             raise
+
 
 TB_LINK = ''
 if IS_BINDER:
@@ -93,13 +104,15 @@ if IS_BINDER:
         a.href = address.substr(0, address.lastIndexOf("/")-9).concat("proxy/6006/");
     </script>
     ''')
-    
+
+
 def config_chapter0(branch='master'):
     if IS_COLAB:
         print('Downloading files from GitHub repo to Colab...')
         download_to_colab(0, branch)
         print('Finished!')
-    
+
+
 def config_chapter1(branch='master'):
     if IS_COLAB:
         print('Installing torchviz...')
@@ -117,12 +130,14 @@ def config_chapter1(branch='master'):
                 if e.errno != errno.EEXIST:
                     raise
         print('Finished!')
-        
+
+
 def config_chapter2(branch='master'):
     if IS_COLAB:
         print('Downloading files from GitHub repo to Colab...')
         download_to_colab(2, branch)
         print('Finished!')
+
 
 def config_chapter2_1(branch='master'):
     if IS_COLAB:
@@ -130,11 +145,13 @@ def config_chapter2_1(branch='master'):
         download_to_colab(21, branch)
         print('Finished!')
 
+
 def config_chapter3(branch='master'):
     if IS_COLAB:
         print('Downloading files from GitHub repo to Colab...')
         download_to_colab(3, branch)
         print('Finished!')
+
 
 def config_chapter4(branch='master'):
     if IS_COLAB:
@@ -142,47 +159,55 @@ def config_chapter4(branch='master'):
         download_to_colab(4, branch)
         print('Finished!')
 
+
 def config_chapter5(branch='master'):
     if IS_COLAB:
         print('Downloading files from GitHub repo to Colab...')
         download_to_colab(5, branch)
         print('Finished!')
 
+
 def config_chapter6(branch='master'):
     if IS_COLAB:
         print('Downloading files from GitHub repo to Colab...')
         download_to_colab(6, branch)
         print('Finished!')
-        
+
+
 def config_chapter7(branch='master'):
     if IS_COLAB:
         print('Downloading files from GitHub repo to Colab...')
         download_to_colab(7, branch)
         print('Finished!')
-        
+
+
 def config_chapterextra(branch='master'):
     if IS_COLAB:
         print('Downloading files from GitHub repo to Colab...')
         download_to_colab(71, branch)
         print('Finished!')
-        
+
+
 def config_chapter8(branch='master'):
     if IS_COLAB:
         print('Downloading files from GitHub repo to Colab...')
         download_to_colab(8, branch)
         print('Finished!')
-        
+
+
 def config_chapter9(branch='master'):
     if IS_COLAB:
         print('Downloading files from GitHub repo to Colab...')
         download_to_colab(9, branch)
         print('Finished!')
 
+
 def config_chapter10(branch='master'):
     if IS_COLAB:
         print('Downloading files from GitHub repo to Colab...')
         download_to_colab(10, branch)
         print('Finished!')
+
 
 def config_chapter11(branch='master'):
     if IS_COLAB:
