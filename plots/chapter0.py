@@ -77,7 +77,7 @@ def figure2(x_train, y_train, b, w, color='k'):
     x_range = np.linspace(0, 1, 101)
     # Computes yhat
     # 计算预测值
-    yhat_range = b + w * x_range
+    yhat_range = b + w * x_train
 
     fig, ax = plt.subplots(1, 1, figsize=(6, 6))
     ax.set_xlabel('x')
@@ -88,7 +88,7 @@ def figure2(x_train, y_train, b, w, color='k'):
     ax.scatter(x_train, y_train)
     # Predictions
     # 绘制预测值线
-    ax.plot(x_range, yhat_range, label='Model\'s predictions', c=color, linestyle='--')
+    ax.plot(x_train, yhat_range, label='Model\'s predictions', c=color, linestyle='--')
 
     # Annotations
     ax.annotate('b = {:.4f} w = {:.4f}'.format(b[0], w[0]), xy=(.2, .55), c=color)
