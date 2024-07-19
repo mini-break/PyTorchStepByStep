@@ -108,8 +108,21 @@ def figure3(x_train, y_train, b, w):
     ax.scatter([x0], [y0], c='r')
     # Vertical line showing error between point and prediction
     # 在第一个数据点和预测值之间绘制一条垂直的虚线，以表示误差
+    # 减去 0.03 是为了让垂直虚线稍微低于实际数据点，避免完全重叠，从而使误差线更清晰可见
     ax.plot([x0, x0], [b[0] + w[0] * x0, y0 - .03], c='r', linewidth=2, linestyle='--')
+    """
+    x0: 箭头起点的 x 坐标。
+    y0 - .03: 箭头起点的 y 坐标。y0 是第一个数据点的 y 坐标，减去 0.03 是为了将箭头的起点稍微下移，使箭头与数据点之间有一定的间距。
+    0: 箭头在 x 方向上的长度。值为 0 表示箭头不在 x 方向上移动。
+    .03: 箭头在 y 方向上的长度。值为 0.03 表示箭头在 y 方向上向上移动 0.03 个单位。
+    color='r': 箭头的颜色为红色 (r 表示 red)。
+    shape='full': 箭头的形状，'full' 表示箭头的头部是完整的（填充的）。
+    lw=0: 箭头线的宽度。值为 0 表示不绘制箭头的线，仅绘制箭头的头部。
+    length_includes_head=True: 布尔值，表示箭头的长度是否包括箭头的头部。True 表示箭头的长度包括头部长度。
+    head_width=.03: 箭头头部的宽度。值为 0.03 表示箭头头部的宽度为 0.03 个单位。
+    """
     ax.arrow(x0, y0 - .03, 0, .03, color='r', shape='full', lw=0, length_includes_head=True, head_width=.03)
+    # 加上 0.05 是为了让箭头的起点稍微高于预测值，使箭头更加明显
     ax.arrow(x0, b[0] + w[0] * x0 + .05, 0, -.03, color='r', shape='full', lw=0, length_includes_head=True,
              head_width=.03)
     # Annotations
